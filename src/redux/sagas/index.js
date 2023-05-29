@@ -1,10 +1,12 @@
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, put, call } from 'redux-saga/effects';
 import { GET_POSTS } from '../constants';
 import { getPosts } from '../../api/index';
+import { setLatestPosts } from '../actions/actionCreater';
+
 
 export function* workerSaga() {
-  const data = yield getPosts();
-  console.log(data);
+    const { data } = yield call(getPosts);
+    yield put(setLatestPosts(data));
 }
 
 export function* watchClickSaga() {
