@@ -1,4 +1,5 @@
 import React from "react";
+import { LinkContainer } from "react-router-bootstrap";
 import { Container, Navbar, Nav, Image, Col } from "react-bootstrap";
 
 export default function Header() {
@@ -23,12 +24,12 @@ export default function Header() {
             <p className="ps-3 pt-2">Anton Kolesnikov</p>
             <p className="ps-3">tonywk@ya.ru</p>
 
-            <Nav.Link className="link-white p-3" href="/">
-              Список постов
-            </Nav.Link>
-            <Nav.Link className="link-white p-3 w-10" href="/about">
-              Обо мне
-            </Nav.Link>
+            <LinkContainer to="/">
+              <Nav.Link className="link-white p-3">Список постов</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/about">
+              <Nav.Link className="link-white p-3 w-10">Обо мне</Nav.Link>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Container>

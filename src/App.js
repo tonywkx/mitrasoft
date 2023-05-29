@@ -4,7 +4,10 @@ import Details from './pages/details';
 import About from './pages/about';
 import {Route, Routes} from 'react-router-dom';
 
+
 function App() {
+ 
+
   return (
     <Routes >
       <Route path='/' element={<Home/>}/>

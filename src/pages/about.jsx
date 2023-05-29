@@ -65,7 +65,7 @@ export default function About() {
           <Col sm={3}>
             <div className=" border p-2">
               <h3>Стэк</h3>
-              <p>
+              <div>
                 <span className="fw-bold">Frontend:</span>
                 <ListGroup>
                   <ListGroup.Item>JavaScript ES6</ListGroup.Item>
@@ -89,7 +89,7 @@ export default function About() {
                     React Native, Socket.io, GrafQL
                   </ListGroup.Item>
                 </ListGroup>
-              </p>
+              </div>
             </div>
           </Col>
         </Row>
