@@ -1,36 +1,34 @@
 import React from "react";
 import Header from "../components/header";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  increaseCount,
-  decreaseCount,
-  getLatestNews,
-} from "../redux/actions/actionCreater";
+import { useSelector } from "react-redux";
+import { Container, Spinner } from "react-bootstrap";
+import Posts from "../components/posts";
 
 export default function Home() {
-  const count = useSelector((store) => store?.counter?.count || 0);
-  const dispatch = useDispatch();
+  const { latestPosts } = useSelector((store) => store?.posts || {});
+  const { latestPostsError } = useSelector((store) => store?.errors || {});
+  const { isDataLoading } = useSelector((store) => store?.loader || {});
 
-  const handleIncrease = () => {
-    dispatch(increaseCount());
-  };
-
-  const handleDecrease = () => {
-    dispatch(decreaseCount());
-  };
-
-  const handleNews = () => {
-    dispatch(getLatestNews());
-  };
   return (
     <>
       <Header />
-      <div>
-        <button onClick={handleIncrease}>+1</button>
-        <button onClick={handleDecrease}>-1</button>
-        <button onClick={handleNews}>Get Posts</button>
-        <h1>{count}</h1>
-      </div>
+      <Container fluid>
+        <h1>Список постов</h1>
+
+        {/* Здесь можно добавить код для поиска по заголовку поста и очистки поля через крестик */}
+
+        {/* Сортировка по заголовку */}
+
+        {isDataLoading ? (
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        ) : (
+          <Posts posts={latestPosts} error={latestPostsError} />
+        )}
+
+        {/* Пагинация */}
+      </Container>
     </>
   );
 }

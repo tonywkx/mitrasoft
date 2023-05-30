@@ -1,4 +1,4 @@
-export const INCREASE_COUNT = "INCREASE_COUNT";
-export const DECREASE_COUNT = "DECREASE_COUNT";
-export const GET_POSTS = "GET_POSTS";
+
 export const SET_POSTS = "SET_POSTS";
+export const SET_POSTS_ERROR = "SET_POPULAR_NEWS_ERROR";
+export const SET_LOADING_DATA = "SET_LOADING_DATA";

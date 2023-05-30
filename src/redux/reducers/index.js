@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
-import counter from "./counter";
 import posts from './posts'
+import errors from "./errors";
+import loader from './loader';
 
 const reducer = combineReducers({
-  counter,
-  posts
+  
+  posts,
+  loader,
+  errors,
   
 });
 
