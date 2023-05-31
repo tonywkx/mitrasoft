@@ -2,3 +2,5 @@
 export const SET_POSTS = "SET_POSTS";
 export const SET_POSTS_ERROR = "SET_POPULAR_NEWS_ERROR";
 export const SET_LOADING_DATA = "SET_LOADING_DATA";
+export const GET_COMMENTS = "GET_COMMENTS";
+export const SET_COMMENTS = "SET_COMMENTS";

@@ -1,8 +1,14 @@
-import { Card, Button /* ListGroup */ } from "react-bootstrap";
+import { Card, Button, ListGroup, Spinner } from "react-bootstrap";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getComments } from "../redux/actions/actionCreater";
 
 const Posts = ({ posts, error }) => {
   const [showComments, setShowComments] = useState(false);
+  const dispatch = useDispatch();
+
+  const { comments } = useSelector((store) => store?.comments || {});
+  const { isDataLoading } = useSelector((store) => store?.loader || {});
 
   if (!posts || posts.length === 0) {
     return error ? <h2>{error}</h2> : null;
@@ -10,6 +16,7 @@ const Posts = ({ posts, error }) => {
 
   const toggleComments = () => {
     setShowComments(!showComments);
+    dispatch(getComments());
   };
 
   return (
@@ -20,9 +27,9 @@ const Posts = ({ posts, error }) => {
             <Card.Title>{title}</Card.Title>
             <Card.Text>{body}</Card.Text>
           </Card.Body>
-          <Card.Footer className="justify-content-between d-flex">
+          <Card.Footer className="justify-content-between d-flex flex-column align-items-center">
             <Card.Img
-              src="./assets/avatar.png" // Путь к изображению аватара
+              src="./assets/avatar.png"
               alt="Аватар"
               className="avatar img-fluid"
               style={{ width: "100px", height: "100px" }}
@@ -37,15 +44,22 @@ const Posts = ({ posts, error }) => {
             >
               {showComments ? "Скрыть комментарии" : "Комментарии"}
             </Button>
-            {/* {showComments && (
+            {showComments && isDataLoading ? (
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            ) : (
+              showComments &&
+              comments[id] && (
                 <ListGroup className="my-3">
-                  {post.comments.map((comment) => (
+                  {comments[id].map((comment) => (
                     <ListGroup.Item key={comment.id}>
-                      <strong>{comment.email}</strong>: {comment.text}
+                      <strong>{comment.email}</strong>: {comment.body}
                     </ListGroup.Item>
                   ))}
                 </ListGroup>
-              )} */}
+              )
+            )}
           </Card.Footer>
         </Card>
       ))}

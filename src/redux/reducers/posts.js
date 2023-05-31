@@ -4,7 +4,7 @@ const initialState = {
   latestPosts: [],
 };
 
-const news = (state = initialState, { type, payload }) => {
+const posts = (state = initialState, { type, payload }) => {
   switch (type) {
     case SET_POSTS: 
       return {
@@ -15,4 +15,4 @@ const news = (state = initialState, { type, payload }) => {
   }
 };
 
-export default news;
+export default posts;
