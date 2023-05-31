@@ -3,13 +3,15 @@ import posts from './posts'
 import errors from "./errors";
 import loader from './loader';
 import comments from './comments';
+import user from './user';
 
 const reducer = combineReducers({
   
   posts,
   loader,
   errors,
-  comments
+  comments,
+  user
   
 });
 

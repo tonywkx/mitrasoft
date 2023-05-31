@@ -23,3 +23,8 @@ export const getCommentsByIds = async (ids) => {
     throw new Error('Failed to fetch comments');
   }
 };
+
+export const getUser = async (id) => {
+  const res = axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
+    return  await res;
+}

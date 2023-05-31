@@ -1,5 +1,13 @@
 import React from "react";
+import { Container, Button } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 export default function Details() {
-  return <div>Details of posts and users!</div>;
+  return (
+    <Container>
+      <LinkContainer to="/">
+        <Button variant="primary">Назад к постам</Button>
+      </LinkContainer>
+    </Container>
+  );
 }

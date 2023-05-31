@@ -1,7 +1,8 @@
 import { Card, Button, ListGroup, Spinner } from "react-bootstrap";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getComments } from "../redux/actions/actionCreater";
+import { getComments, getAuthorId } from "../redux/actions/actionCreater";
+import { LinkContainer } from "react-router-bootstrap";
 
 const Posts = ({ posts, error }) => {
   const [showComments, setShowComments] = useState(false);
@@ -19,6 +20,10 @@ const Posts = ({ posts, error }) => {
     dispatch(getComments());
   };
 
+  const handleAvatarClick = (authorId) => {
+    dispatch(getAuthorId(authorId));
+  };
+
   return (
     <div>
       {posts.map(({ userId, id, title, body }) => (
@@ -28,15 +33,19 @@ const Posts = ({ posts, error }) => {
             <Card.Text>{body}</Card.Text>
           </Card.Body>
           <Card.Footer className="justify-content-between d-flex flex-column align-items-center">
-            <Card.Img
-              src="./assets/avatar.png"
-              alt="Аватар"
-              className="avatar img-fluid"
+            <LinkContainer
               style={{ width: "100px", height: "100px" }}
-              onClick={() => {
-                // Обработка клика по аватару для перехода на страницу "Подробности о пользователе"
-              }}
-            />
+              to="/details"
+              onClick={() => handleAvatarClick(userId)}
+            >
+              <Card.Img
+                src="./assets/avatar.png"
+                alt="Аватар"
+                className="avatar img-fluid"
+                style={{ width: "100px", height: "100px" }}
+              />
+            </LinkContainer>
+
             <Button
               variant="secondary"
               style={{ height: "40px" }}
@@ -44,21 +53,19 @@ const Posts = ({ posts, error }) => {
             >
               {showComments ? "Скрыть комментарии" : "Комментарии"}
             </Button>
-            {showComments && isDataLoading ? (
+            {showComments && isDataLoading && (
               <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
-            ) : (
-              showComments &&
-              comments[id] && (
-                <ListGroup className="my-3">
-                  {comments[id].map((comment) => (
-                    <ListGroup.Item key={comment.id}>
-                      <strong>{comment.email}</strong>: {comment.body}
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
-              )
+            )}
+            {showComments && comments[id] && (
+              <ListGroup className="my-3">
+                {comments[id].map((comment) => (
+                  <ListGroup.Item key={comment.id}>
+                    <strong>{comment.email}</strong>: {comment.body}
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
             )}
           </Card.Footer>
         </Card>
