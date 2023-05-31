@@ -1,4 +1,4 @@
-import { takeEvery, put, call, delay, select, all } from 'redux-saga/effects';
+import { takeEvery, put, call, delay, select } from 'redux-saga/effects';
 import { SET_LOADING_DATA, SET_POSTS_ERROR, GET_COMMENTS, GET_AUTHOR_ID, /* SET_AUTHOR_ID */ } from '../constants';
 import { getPosts, getCommentsByIds, getUser } from '../../api/index';
 import { setLatestPosts, setComments, setUser } from '../actions/actionCreater';
@@ -51,12 +51,8 @@ export function* watchGetAuthorId() {
 
 
 export default function* rootSaga() {
-  yield all([
-     watchPostsSaga(),
-    watchComSaga(),
-    watchGetAuthorId(),
-  ]);
-  /* yield watchPostsSaga();
-  yield watchComSaga(); */
+  yield watchPostsSaga();
+  yield watchComSaga();
+  yield watchGetAuthorId();
   
 }
