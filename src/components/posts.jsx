@@ -24,9 +24,9 @@ const Posts = ({ posts, error }) => {
     dispatch(getComments());
   };
 
-  const handleGetUser = () => {
-    dispatch(getUserId());
-    dispatch(getUserPosts());
+  const handleGetUser = (userId) => {
+    dispatch(getUserId(userId));
+    dispatch(getUserPosts(userId));
   };
 
   return (
@@ -41,7 +41,7 @@ const Posts = ({ posts, error }) => {
             <LinkContainer
               style={{ width: "100px", height: "100px" }}
               to="/details"
-              onClick={handleGetUser}
+              onClick={() => handleGetUser(userId)}
             >
               <Card.Img
                 src="./assets/avatar.png"

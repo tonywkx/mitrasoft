@@ -24,12 +24,12 @@ export const getCommentsByIds = async (ids) => {
   }
 };
 
-export const getUser = async () => {
-  const res = axios.get(`https://jsonplaceholder.typicode.com/users/1`);
+export const getUser = async (id) => {
+  const res = axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
   return await res;
 }
 
-export const getUserPosts = async () => {
-  const res = axios.get(`https://jsonplaceholder.typicode.com/users/1/posts`);
+export const getUserPosts = async (id) => {
+  const res = axios.get(`https://jsonplaceholder.typicode.com/users/${id}/posts`);
   return await res;
 }

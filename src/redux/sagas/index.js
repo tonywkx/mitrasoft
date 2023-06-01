@@ -40,11 +40,15 @@ export function* watchComSaga(){
 
 
 
-export function* userSaga() {
-  /* const {authorId} = action.payload */
-  const data = yield call(getUser);
+export function* userSaga(action) {
+  
+  const { id } = action;
+
+  const data = yield call(getUser, id);
   let arr = Object.entries(data);
   yield put(setUser(arr[0]));
+  let userString = JSON.stringify(arr[0]);
+  localStorage.setItem("user", userString);
 }
 
 export function* watchGetUser() {
@@ -52,15 +56,18 @@ export function* watchGetUser() {
 }
 
 
-export function* userPosts(){
+export function* userPosts(action){
+  const { id } = action;
   yield delay(500);
   const postsData = yield select(getPostsData);
   console.log(postsData)
   if (postsData && postsData.length > 0){
     yield put(setUserPosts([]));
   } else {
-    const {data} = yield call(getUserPosts) 
+    const {data} = yield call(getUserPosts, id) 
     yield put(setUserPosts(data));
+    let userPostsString = JSON.stringify(data);
+    localStorage.setItem("userPosts", userPostsString);
   }
   
   

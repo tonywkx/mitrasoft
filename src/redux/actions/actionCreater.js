@@ -20,9 +20,9 @@ import { SET_POSTS,
     payload
   });
 
-  export const getUserId = () => ({
+  export const getUserId = (id) => ({
     type: GET_USER_ID,
-    
+    id
   });
 
   export const setUser = (payload) => ({
@@ -32,8 +32,9 @@ import { SET_POSTS,
 
 
 
-  export const getUserPosts =() => ({
-    type: GET_USER_POSTS
+  export const getUserPosts =(id) => ({
+    type: GET_USER_POSTS,
+    id
   })
 
   export const setUserPosts =(payload) => ({
