@@ -2,12 +2,12 @@ import axios from 'axios';
 
 export const getPosts = async () => {
     const res = axios.get('https://jsonplaceholder.typicode.com/posts');
-    return  await res;
+    return await res;
   };
 
 export const getComments = async () => {
   const res = axios.get(`https://jsonplaceholder.typicode.com/posts/1/comments`);
-    return  await res;
+  return await res;
 }
 
 export const getCommentsByIds = async (ids) => {
@@ -24,7 +24,12 @@ export const getCommentsByIds = async (ids) => {
   }
 };
 
-export const getUser = async (id) => {
-  const res = axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
-    return  await res;
+export const getUser = async () => {
+  const res = axios.get(`https://jsonplaceholder.typicode.com/users/1`);
+  return await res;
+}
+
+export const getUserPosts = async () => {
+  const res = axios.get(`https://jsonplaceholder.typicode.com/users/1/posts`);
+  return await res;
 }

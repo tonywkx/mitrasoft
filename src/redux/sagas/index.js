@@ -1,9 +1,11 @@
-import { takeEvery, put, call, delay, select } from 'redux-saga/effects';
-import { SET_LOADING_DATA, SET_POSTS_ERROR, GET_COMMENTS, GET_AUTHOR_ID, /* SET_AUTHOR_ID */ } from '../constants';
-import { getPosts, getCommentsByIds, getUser } from '../../api/index';
-import { setLatestPosts, setComments, setUser } from '../actions/actionCreater';
+import { takeEvery,  put, call, delay, select, spawn} from 'redux-saga/effects';
+import { SET_LOADING_DATA, SET_POSTS_ERROR, GET_COMMENTS, GET_USER_ID, GET_USER_POSTS,  } from '../constants';
+import { getPosts, getCommentsByIds, getUser, getUserPosts } from '../../api/index';
+import { setLatestPosts, setComments, setUser, setUserPosts } from '../actions/actionCreater';
 
 const getPostIds = (state) => state.posts.latestPosts.map((post) => post.id);
+const getPostsData = (state) => state.user.userPosts;
+
 
 export function* workerSaga() {
   try{
@@ -38,21 +40,43 @@ export function* watchComSaga(){
 
 
 
-function* fetchAuthorData(action) {
-  const authorId = action.payload
-  const authorData = yield call(getUser, authorId);
-  yield put(setUser(authorData));
+export function* userSaga() {
+  /* const {authorId} = action.payload */
+  const data = yield call(getUser);
+  let arr = Object.entries(data);
+  yield put(setUser(arr[0]));
 }
 
-export function* watchGetAuthorId() {
-  yield takeEvery(GET_AUTHOR_ID, fetchAuthorData);
+export function* watchGetUser() {
+  yield takeEvery(GET_USER_ID, userSaga);
+}
+
+
+export function* userPosts(){
+  yield delay(500);
+  const postsData = yield select(getPostsData);
+  console.log(postsData)
+  if (postsData && postsData.length > 0){
+    yield put(setUserPosts([]));
+  } else {
+    const {data} = yield call(getUserPosts) 
+    yield put(setUserPosts(data));
+  }
+  
+  
+}
+
+export function* watchUserPosts(){
+  yield put({ type: SET_LOADING_DATA, payload: true });
+  yield takeEvery(GET_USER_POSTS, userPosts)
+  yield put({ type: SET_LOADING_DATA, payload: false });
 }
 
 
 
 export default function* rootSaga() {
-  yield watchPostsSaga();
-  yield watchComSaga();
-  yield watchGetAuthorId();
-  
+    yield watchPostsSaga();
+    yield spawn(watchComSaga);
+    yield spawn(watchGetUser);
+    yield spawn(watchUserPosts);
 }

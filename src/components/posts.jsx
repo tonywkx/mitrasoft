@@ -1,7 +1,11 @@
 import { Card, Button, ListGroup, Spinner } from "react-bootstrap";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getComments, getAuthorId } from "../redux/actions/actionCreater";
+import {
+  getComments,
+  getUserId,
+  getUserPosts,
+} from "../redux/actions/actionCreater";
 import { LinkContainer } from "react-router-bootstrap";
 
 const Posts = ({ posts, error }) => {
@@ -20,8 +24,9 @@ const Posts = ({ posts, error }) => {
     dispatch(getComments());
   };
 
-  const handleAvatarClick = (authorId) => {
-    dispatch(getAuthorId(authorId));
+  const handleGetUser = () => {
+    dispatch(getUserId());
+    dispatch(getUserPosts());
   };
 
   return (
@@ -36,7 +41,7 @@ const Posts = ({ posts, error }) => {
             <LinkContainer
               style={{ width: "100px", height: "100px" }}
               to="/details"
-              onClick={() => handleAvatarClick(userId)}
+              onClick={handleGetUser}
             >
               <Card.Img
                 src="./assets/avatar.png"

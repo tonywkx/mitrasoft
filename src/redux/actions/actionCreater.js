@@ -1,11 +1,15 @@
-import { SET_POSTS, GET_COMMENTS, SET_COMMENTS, /* SEARCH_POSTS, CLEAR_SEARCH  */ GET_AUTHOR_ID, SET_AUTHOR_ID} from "../constants";
-
+import { SET_POSTS,
+   GET_COMMENTS,
+    SET_COMMENTS, 
+    GET_USER_ID, 
+    SET_USER_ID, 
+    GET_USER_POSTS,
+    SET_USER_POSTS} from "../constants";
 
   export const setLatestPosts = (payload) => ({
     type: SET_POSTS,
     payload,
   });
-
 
   export const getComments = () => ({
     type: GET_COMMENTS,
@@ -16,21 +20,24 @@ import { SET_POSTS, GET_COMMENTS, SET_COMMENTS, /* SEARCH_POSTS, CLEAR_SEARCH  *
     payload
   });
 
-  export const getAuthorId = (authorId) => ({
-    type: GET_AUTHOR_ID,
-    payload: authorId,
+  export const getUserId = () => ({
+    type: GET_USER_ID,
+    
   });
 
   export const setUser = (payload) => ({
-    type: SET_AUTHOR_ID,
+    type: SET_USER_ID,
     payload
   });
 
-  /* export const searchPosts = (payload) => ({
-    type: SEARCH_POSTS,
+
+
+  export const getUserPosts =() => ({
+    type: GET_USER_POSTS
+  })
+
+  export const setUserPosts =(payload) => ({
+    type: SET_USER_POSTS,
     payload
   })
-  
-  export const clearSearch = () => ({
-    type: CLEAR_SEARCH,
-  }) */
+
