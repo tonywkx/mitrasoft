@@ -3,6 +3,7 @@ import Header from "../components/header";
 import { useSelector } from "react-redux";
 import { Container, Spinner } from "react-bootstrap";
 import Posts from "../components/posts";
+import SortByTitle from "../components/sort";
 
 export default function Home() {
   const { latestPosts } = useSelector((store) => store?.posts || {});
@@ -17,7 +18,7 @@ export default function Home() {
 
         {/* Здесь можно добавить код для поиска по заголовку поста и очистки поля через крестик */}
 
-        {/* Сортировка по заголовку */}
+        <SortByTitle />
 
         {isDataLoading ? (
           <Spinner animation="border" role="status">

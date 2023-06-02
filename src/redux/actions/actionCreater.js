@@ -4,7 +4,7 @@ import { SET_POSTS,
     GET_USER_ID, 
     SET_USER_ID, 
     GET_USER_POSTS,
-    SET_USER_POSTS} from "../constants";
+    SET_USER_POSTS, SORT_POSTS_BY_TITLE} from "../constants";
 
   export const setLatestPosts = (payload) => ({
     type: SET_POSTS,
@@ -42,3 +42,10 @@ import { SET_POSTS,
     payload
   })
 
+
+  export const sortPostsByTitle = (sortDirection) => {
+    return {
+      type: SORT_POSTS_BY_TITLE,
+      payload: sortDirection
+    };
+  };

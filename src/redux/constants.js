@@ -8,3 +8,5 @@ export const GET_USER_ID = "GET_USER_ID";
 export const SET_USER_ID = "SET_USER_ID";
 export const GET_USER_POSTS = "GET_USER_POSTS";
 export const SET_USER_POSTS = "SET_USER_POSTS";
+
+export const SORT_POSTS_BY_TITLE = 'SORT_POSTS_BY_TITLE';
