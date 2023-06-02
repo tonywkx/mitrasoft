@@ -13,3 +13,5 @@ export const SORT_POSTS_BY_TITLE = 'SORT_POSTS_BY_TITLE';
 
 export const SET_SEARCH = 'SET_SEARCH';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
+
+export const SET_PAGE = 'SET_PAGE';

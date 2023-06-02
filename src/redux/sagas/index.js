@@ -3,8 +3,9 @@ import { SET_LOADING_DATA, SET_POSTS_ERROR, GET_COMMENTS, GET_USER_ID, GET_USER_
 import { getPosts, getCommentsByIds, getUser, getUserPosts } from '../../api/index';
 import { setLatestPosts, setComments, setUser, setUserPosts } from '../actions/actionCreater';
 
-const getPostIds = (state) => state.posts.latestPosts.map((post) => post.id);
+/* const getPostIds = (state) => state.posts.latestPosts.map((post) => post.id); */
 const getPostsData = (state) => state.user.userPosts;
+const getCommentsData = (state) => state.comments.comments;
 
 export function* workerSaga() {
   try{
@@ -22,10 +23,19 @@ export function* watchPostsSaga() {
   yield put({ type: SET_LOADING_DATA, payload: false });
 }
 
-export function* comSaga(){
-  const postIds = yield select(getPostIds);
-  const comments = yield call(getCommentsByIds, postIds)
-  yield put(setComments(comments))
+export function* comSaga(action){
+  const { id } = action;
+  /* const postIds = yield select(getPostIds); */
+  /* const {data} = yield call(getCommentsByIds, id) */
+  const commentsData = yield select(getCommentsData);
+  console.log(commentsData)
+  if (commentsData && commentsData.length > 0){
+    yield put(setComments([]));
+  } else {
+    const { data } = yield call(getCommentsByIds, id);
+    yield put(setComments(data));
+  }
+  
 }
 
 export function* watchComSaga(){

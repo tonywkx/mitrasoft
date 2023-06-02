@@ -1,15 +1,26 @@
 import React from "react";
 import Header from "../components/header";
-import { useSelector } from "react-redux";
-import { Container, Spinner } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { Container, Spinner, Pagination } from "react-bootstrap";
 import Posts from "../components/posts";
 import SortByTitle from "../components/sort";
 import SearchByTitle from "../components/search";
+import { setPage } from "../redux/actions/actionCreater";
 
 export default function Home() {
   const { latestPosts } = useSelector((store) => store?.posts || {});
   const { latestPostsError } = useSelector((store) => store?.errors || {});
   const { isDataLoading } = useSelector((store) => store?.loader || {});
+  const { savedPosts } = useSelector((store) => store?.posts || {});
+
+  const dispatch = useDispatch();
+  const currentPage = useSelector((state) => state.posts.currentPage);
+
+  const handlePageChange = (page) => {
+    dispatch(setPage(page));
+  };
+
+  const totalPages = 9;
 
   return (
     <>
@@ -26,10 +37,54 @@ export default function Home() {
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         ) : (
-          <Posts posts={latestPosts} error={latestPostsError} />
+          <Posts
+            posts={latestPosts}
+            savedPosts={savedPosts}
+            error={latestPostsError}
+          />
         )}
 
-        {/* Пагинация */}
+        {currentPage && (
+          <Pagination>
+            <Pagination.Prev
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            />
+            <Pagination.Item
+              active={currentPage === 1}
+              onClick={() => handlePageChange(1)}
+            >
+              1
+            </Pagination.Item>
+            {/*  <Pagination.Ellipsis disabled /> */}
+
+            {/* Вам нужно определить, как генерировать остальные элементы пагинации на основе количества страниц */}
+            {/* Например, если у вас есть переменная `totalPages`, которая содержит общее количество страниц */}
+            {/* Вы можете использовать цикл для генерации Pagination.Item для каждой страницы */}
+            {/* Пример: */}
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <Pagination.Item
+                key={index + 2}
+                active={currentPage === index + 2}
+                onClick={() => handlePageChange(index + 2)}
+              >
+                {index + 2}
+              </Pagination.Item>
+            ))}
+
+            {/* <Pagination.Ellipsis disabled />
+            <Pagination.Item
+              active={currentPage === totalPages}
+              onClick={() => handlePageChange(totalPages)}
+            >
+              {totalPages}
+            </Pagination.Item> */}
+            <Pagination.Next
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            />
+          </Pagination>
+        )}
       </Container>
     </>
   );

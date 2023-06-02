@@ -4,15 +4,20 @@ import { SET_POSTS,
     GET_USER_ID, 
     SET_USER_ID, 
     GET_USER_POSTS,
-    SET_USER_POSTS, SORT_POSTS_BY_TITLE, SET_SEARCH, CLEAR_SEARCH} from "../constants";
+    SET_USER_POSTS,
+    SORT_POSTS_BY_TITLE, 
+    SET_SEARCH, 
+    CLEAR_SEARCH,
+    SET_PAGE} from "../constants";
 
   export const setLatestPosts = (payload) => ({
     type: SET_POSTS,
     payload,
   });
 
-  export const getComments = () => ({
+  export const getComments = (id) => ({
     type: GET_COMMENTS,
+    id
   });
 
   export const setComments = (payload) => ({
@@ -58,9 +63,17 @@ import { SET_POSTS,
     };
   };
   
-  // Действие для очистки поискового запроса
   export const clearSearch = () => {
     return {
       type: CLEAR_SEARCH,
+    };
+  };
+
+
+
+  export const setPage = (page) => {
+    return {
+      type: SET_PAGE,
+      payload: page,
     };
   };

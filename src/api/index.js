@@ -6,15 +6,19 @@ export const getPosts = async () => {
   };
 
 
-export const getCommentsByIds = async (ids) => {
+export const getCommentsByIds = async (id) => {
+
   try {
-    const requests = ids.map((id) => axios.get(`https://jsonplaceholder.typicode.com/posts/${id}/comments`));
+    const res = axios.get(`https://jsonplaceholder.typicode.com/posts/${id}/comments`);
+    return await res;
+
+    /* const requests = ids.map((id) => axios.get(`https://jsonplaceholder.typicode.com/posts/${id}/comments`));
 
     const responses = await Promise.all(requests);
 
     const comments = responses.map((response) => response.data);
 
-    return comments;
+    return comments; */
   } catch (error) {
     throw new Error('Failed to fetch comments');
   }

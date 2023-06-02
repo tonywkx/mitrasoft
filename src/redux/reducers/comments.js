@@ -2,6 +2,7 @@ import { SET_COMMENTS } from "../constants";
 
 const initialState = {
     comments: [],
+
   };
 
   const comments = (state = initialState, { type, payload }) => {
@@ -9,7 +10,8 @@ const initialState = {
       case SET_COMMENTS: 
         return {
           ...state, 
-          comments: [...state.comments, ...payload],
+          comments: [...initialState.comments, ...payload],
+          
         };
       default: return state;
     }

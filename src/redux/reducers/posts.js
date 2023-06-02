@@ -1,10 +1,23 @@
-import { SET_POSTS, SORT_POSTS_BY_TITLE, SET_SEARCH, CLEAR_SEARCH } from "../constants";
+/* eslint-disable no-extend-native */
+import { SET_POSTS, SORT_POSTS_BY_TITLE, SET_SEARCH, CLEAR_SEARCH, SET_PAGE } from "../constants";
 
 const initialState = {
   latestPosts: [],
   sortByTitle: '',
   searchTerm: '',
   savedPosts: [],
+  currentPage: 1,
+  chunkedPosts: [],
+};
+
+Array.prototype.chunk = function (chunkSize) {
+  const array = this;
+  const chunkedArray = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    const chunk = array.slice(i, i + chunkSize);
+    chunkedArray.push(chunk);
+  }
+  return chunkedArray;
 };
 
 const posts = (state = initialState, { type, payload }) => {
@@ -12,8 +25,9 @@ const posts = (state = initialState, { type, payload }) => {
     case SET_POSTS: 
       return {
         ...state, 
-        latestPosts: [...state.latestPosts, ...payload],
-        savedPosts: [...state.latestPosts, ...payload]
+        latestPosts: [...state.latestPosts, ...payload.chunk(10)[0]],
+        savedPosts: [...state.latestPosts, ...payload],
+        chunkedPosts: [...state.latestPosts, ...payload.chunk(10)]
       };
       case SORT_POSTS_BY_TITLE:
       return {
@@ -32,7 +46,15 @@ const posts = (state = initialState, { type, payload }) => {
       return {
         ...state,
         searchTerm: '',
-        latestPosts: [...state.savedPosts]
+        latestPosts: [...state.chunkedPosts[0]]
+      };
+
+      case SET_PAGE:
+      return {
+        ...state,
+        currentPage: payload,
+        latestPosts: [...state.chunkedPosts[payload - 1]]
+
       };
     default: return state;
   }

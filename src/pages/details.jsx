@@ -14,7 +14,9 @@ export default function Details() {
     return (
       <Container fluid className="d-flex flex-column align-items-center">
         <LinkContainer to="/" className="mt-2 mb-3">
-          <Button variant="primary">Назад к постам</Button>
+          <Button variant="primary" onClick={() => localStorage.clear()}>
+            Назад к постам
+          </Button>
         </LinkContainer>
         {user.length > 0 ? (
           <Card className="d-flex flex-column align-items-center bg-info">
