@@ -6,7 +6,6 @@ import { setLatestPosts, setComments, setUser, setUserPosts } from '../actions/a
 const getPostIds = (state) => state.posts.latestPosts.map((post) => post.id);
 const getPostsData = (state) => state.user.userPosts;
 
-
 export function* workerSaga() {
   try{
     yield delay(500);
@@ -21,9 +20,6 @@ export function* watchPostsSaga() {
   yield put({ type: SET_LOADING_DATA, payload: true });
   yield call(workerSaga);
   yield put({ type: SET_LOADING_DATA, payload: false });
-
-
-
 }
 
 export function* comSaga(){
@@ -39,11 +35,8 @@ export function* watchComSaga(){
 }
 
 
-
 export function* userSaga(action) {
-  
   const { id } = action;
-
   const data = yield call(getUser, id);
   let arr = Object.entries(data);
   yield put(setUser(arr[0]));
@@ -55,12 +48,10 @@ export function* watchGetUser() {
   yield takeEvery(GET_USER_ID, userSaga);
 }
 
-
 export function* userPosts(action){
   const { id } = action;
   yield delay(500);
   const postsData = yield select(getPostsData);
-  console.log(postsData)
   if (postsData && postsData.length > 0){
     yield put(setUserPosts([]));
   } else {
@@ -69,8 +60,6 @@ export function* userPosts(action){
     let userPostsString = JSON.stringify(data);
     localStorage.setItem("userPosts", userPostsString);
   }
-  
-  
 }
 
 export function* watchUserPosts(){
@@ -78,8 +67,6 @@ export function* watchUserPosts(){
   yield takeEvery(GET_USER_POSTS, userPosts)
   yield put({ type: SET_LOADING_DATA, payload: false });
 }
-
-
 
 export default function* rootSaga() {
     yield watchPostsSaga();

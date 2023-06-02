@@ -10,14 +10,7 @@ export default function Details() {
   const { isDataLoading } = useSelector((store) => store?.loader || {});
   const { latestPostsError } = useSelector((store) => store?.errors || {});
 
-  /* if (user && userPosts) {
-    let userPostsString = JSON.stringify(userPosts);
-    let userString = JSON.stringify(user);
-    localStorage.setItem("user", userString);
-    localStorage.setItem("userPosts", userPostsString);
-  } */
-
-  if (user) {
+  if (user.length > 0) {
     return (
       <Container fluid className="d-flex flex-column align-items-center">
         <LinkContainer to="/" className="mt-2 mb-3">
@@ -58,7 +51,7 @@ export default function Details() {
     );
   }
 
-  if (localStorage) {
+  if (localStorage.length > 0) {
     let dataFromStorage;
     let postsFromStorage;
 

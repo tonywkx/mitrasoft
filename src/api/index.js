@@ -5,10 +5,6 @@ export const getPosts = async () => {
     return await res;
   };
 
-export const getComments = async () => {
-  const res = axios.get(`https://jsonplaceholder.typicode.com/posts/1/comments`);
-  return await res;
-}
 
 export const getCommentsByIds = async (ids) => {
   try {
