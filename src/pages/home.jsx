@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Container, Spinner } from "react-bootstrap";
 import Posts from "../components/posts";
 import SortByTitle from "../components/sort";
+import SearchByTitle from "../components/search";
 
 export default function Home() {
   const { latestPosts } = useSelector((store) => store?.posts || {});
@@ -16,7 +17,7 @@ export default function Home() {
       <Container fluid>
         <h1>Список постов</h1>
 
-        {/* Здесь можно добавить код для поиска по заголовку поста и очистки поля через крестик */}
+        <SearchByTitle />
 
         <SortByTitle />
 

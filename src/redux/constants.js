@@ -10,3 +10,6 @@ export const GET_USER_POSTS = "GET_USER_POSTS";
 export const SET_USER_POSTS = "SET_USER_POSTS";
 
 export const SORT_POSTS_BY_TITLE = 'SORT_POSTS_BY_TITLE';
+
+export const SET_SEARCH = 'SET_SEARCH';
+export const CLEAR_SEARCH = 'CLEAR_SEARCH';

@@ -4,7 +4,7 @@ import { SET_POSTS,
     GET_USER_ID, 
     SET_USER_ID, 
     GET_USER_POSTS,
-    SET_USER_POSTS, SORT_POSTS_BY_TITLE} from "../constants";
+    SET_USER_POSTS, SORT_POSTS_BY_TITLE, SET_SEARCH, CLEAR_SEARCH} from "../constants";
 
   export const setLatestPosts = (payload) => ({
     type: SET_POSTS,
@@ -47,5 +47,20 @@ import { SET_POSTS,
     return {
       type: SORT_POSTS_BY_TITLE,
       payload: sortDirection
+    };
+  };
+
+
+  export const setSearch = (searchTerm) => {
+    return {
+      type: SET_SEARCH,
+      payload: searchTerm,
+    };
+  };
+  
+  // Действие для очистки поискового запроса
+  export const clearSearch = () => {
+    return {
+      type: CLEAR_SEARCH,
     };
   };
