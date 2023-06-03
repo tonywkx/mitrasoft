@@ -8,6 +8,7 @@ const initialState = {
   savedPosts: [],
   currentPage: 1,
   chunkedPosts: [],
+  openComments: {}
 };
 
 Array.prototype.chunk = function (chunkSize) {

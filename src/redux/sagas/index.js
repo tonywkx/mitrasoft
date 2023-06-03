@@ -49,9 +49,10 @@ export function* userSaga(action) {
   const { id } = action;
   const data = yield call(getUser, id);
   let arr = Object.entries(data);
-  yield put(setUser(arr[0]));
   let userString = JSON.stringify(arr[0]);
   localStorage.setItem("user", userString);
+  yield put(setUser(arr[0]));
+  
 }
 
 export function* watchGetUser() {
@@ -66,9 +67,10 @@ export function* userPosts(action){
     yield put(setUserPosts([]));
   } else {
     const {data} = yield call(getUserPosts, id) 
-    yield put(setUserPosts(data));
     let userPostsString = JSON.stringify(data);
     localStorage.setItem("userPosts", userPostsString);
+    yield put(setUserPosts(data));
+    
   }
 }
 

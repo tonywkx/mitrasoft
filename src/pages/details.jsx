@@ -5,16 +5,22 @@ import { useSelector } from "react-redux";
 import Posts from "../components/posts";
 
 export default function Details() {
-  let { user } = useSelector((store) => store?.user || {});
+  const { user } = useSelector((store) => store?.user || {});
   const { userPosts } = useSelector((store) => store?.user || {});
   const { isDataLoading } = useSelector((store) => store?.loader || {});
   const { latestPostsError } = useSelector((store) => store?.errors || {});
 
-  if (user.length > 0) {
+  const handleExit = () => {
+    localStorage.clear();
+  };
+
+  if (user.length > 0 && userPosts.length > 0) {
+    /* localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("posts", JSON.stringify(userPosts)); */
     return (
       <Container fluid className="d-flex flex-column align-items-center">
         <LinkContainer to="/" className="mt-2 mb-3">
-          <Button variant="primary" onClick={() => localStorage.clear()}>
+          <Button variant="primary" onClick={handleExit}>
             Назад к постам
           </Button>
         </LinkContainer>
@@ -53,21 +59,20 @@ export default function Details() {
     );
   }
 
-  if (localStorage.length > 0) {
-    let dataFromStorage;
-    let postsFromStorage;
-
+  if (localStorage.length) {
     const dataUserString = localStorage.getItem("user");
-    dataFromStorage = JSON.parse(dataUserString);
+    let dataFromStorage = JSON.parse(dataUserString);
     console.log(dataFromStorage);
     const dataPostsString = localStorage.getItem("userPosts");
-    postsFromStorage = JSON.parse(dataPostsString);
+    let postsFromStorage = JSON.parse(dataPostsString);
     console.log(postsFromStorage);
 
     return (
       <Container fluid className="d-flex flex-column align-items-center">
         <LinkContainer to="/" className="mt-2 mb-3">
-          <Button variant="primary">Назад к постам</Button>
+          <Button variant="primary" onClick={handleExit}>
+            Назад к постам
+          </Button>
         </LinkContainer>
         {
           <Card className="d-flex flex-column align-items-center bg-info">
