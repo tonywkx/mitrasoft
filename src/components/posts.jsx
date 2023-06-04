@@ -1,4 +1,4 @@
-import { Card, Button, ListGroup /* Spinner  */ } from "react-bootstrap";
+import { Card, Button, ListGroup } from "react-bootstrap";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,9 +12,7 @@ const Posts = ({ posts, error, savedPosts }) => {
   const [showComments, setShowComments] = useState(false);
   const [openId, setOpenId] = useState(null);
   const dispatch = useDispatch();
-
   const { comments } = useSelector((store) => store?.comments || {});
-  /* const { isDataLoading } = useSelector((store) => store?.loader || {}); */
 
   if (!posts || posts.length === 0) {
     return error ? <h2>{error}</h2> : null;
@@ -23,13 +21,10 @@ const Posts = ({ posts, error, savedPosts }) => {
   const toggleComments = (id) => {
     setOpenId(id);
     setShowComments(!showComments);
-
     dispatch(getComments(id));
   };
 
   const handleGetUser = (userId) => {
-    localStorage.clear();
-    console.log(localStorage);
     dispatch(getUserId(userId));
     dispatch(getUserPosts(userId));
   };
@@ -65,38 +60,15 @@ const Posts = ({ posts, error, savedPosts }) => {
                 {showComments ? "Скрыть комментарии" : "Комментарии"}
               </Button>
               {id === openId && (
-                <div>
-                  {/* Вывод комментариев для данного поста */}
-                  {/* Здесь вы можете использовать соответствующий селектор для получения комментариев по идентификатору поста */}
-                  {/*
-                Например:
-                const comments = useSelector((state) => state.comments[post.id]);
-              */}
-                  <ListGroup className="my-3">
-                    {comments &&
-                      comments.map((comment) => (
-                        <ListGroup.Item key={comment.id}>
-                          <strong>{comment.email}</strong>: {comment.body}
-                        </ListGroup.Item>
-                      ))}
-                  </ListGroup>
-                </div>
-              )}
-
-              {/* {showComments && isDataLoading && (
-                <Spinner animation="border" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </Spinner>
-              )} */}
-              {/*  {showComments && comments && (
                 <ListGroup className="my-3">
-                  {comments.map((comment) => (
-                    <ListGroup.Item key={comment.id}>
-                      <strong>{comment.email}</strong>: {comment.body}
-                    </ListGroup.Item>
-                  ))}
+                  {comments &&
+                    comments.map((comment) => (
+                      <ListGroup.Item key={comment.id}>
+                        <strong>{comment.email}</strong>: {comment.body}
+                      </ListGroup.Item>
+                    ))}
                 </ListGroup>
-              )} */}
+              )}
             </Card.Footer>
           </Card>
         );

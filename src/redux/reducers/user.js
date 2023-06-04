@@ -10,12 +10,12 @@ const initialState = {
       case SET_USER_ID: 
         return {
           ...state, 
-          user: [...state.user, ...payload],
+          user: [...initialState.user, ...payload],
         };
         case SET_USER_POSTS: 
         return {
           ...state, 
-          userPosts: [...state.userPosts, ...payload],
+          userPosts: [...initialState.userPosts, ...payload],
         };
       default: return state;
     }

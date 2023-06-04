@@ -4,7 +4,7 @@ import { getPosts, getCommentsByIds, getUser, getUserPosts } from '../../api/ind
 import { setLatestPosts, setComments, setUser, setUserPosts } from '../actions/actionCreater';
 
 /* const getPostIds = (state) => state.posts.latestPosts.map((post) => post.id); */
-const getPostsData = (state) => state.user.userPosts;
+/* const getPostsData = (state) => state.user.userPosts; */
 const getCommentsData = (state) => state.comments.comments;
 
 export function* workerSaga() {
@@ -23,19 +23,18 @@ export function* watchPostsSaga() {
   yield put({ type: SET_LOADING_DATA, payload: false });
 }
 
+
 export function* comSaga(action){
   const { id } = action;
   /* const postIds = yield select(getPostIds); */
   /* const {data} = yield call(getCommentsByIds, id) */
   const commentsData = yield select(getCommentsData);
-  console.log(commentsData)
   if (commentsData && commentsData.length > 0){
     yield put(setComments([]));
   } else {
     const { data } = yield call(getCommentsByIds, id);
     yield put(setComments(data));
   }
-  
 }
 
 export function* watchComSaga(){
@@ -45,14 +44,13 @@ export function* watchComSaga(){
 }
 
 
+
+
 export function* userSaga(action) {
   const { id } = action;
   const data = yield call(getUser, id);
   let arr = Object.entries(data);
-  let userString = JSON.stringify(arr[0]);
-  localStorage.setItem("user", userString);
   yield put(setUser(arr[0]));
-  
 }
 
 export function* watchGetUser() {
@@ -62,16 +60,8 @@ export function* watchGetUser() {
 export function* userPosts(action){
   const { id } = action;
   yield delay(500);
-  const postsData = yield select(getPostsData);
-  if (postsData && postsData.length > 0){
-    yield put(setUserPosts([]));
-  } else {
-    const {data} = yield call(getUserPosts, id) 
-    let userPostsString = JSON.stringify(data);
-    localStorage.setItem("userPosts", userPostsString);
-    yield put(setUserPosts(data));
-    
-  }
+  const {data} = yield call(getUserPosts, id)  
+  yield put(setUserPosts(data));
 }
 
 export function* watchUserPosts(){

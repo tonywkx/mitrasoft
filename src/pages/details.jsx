@@ -15,8 +15,8 @@ export default function Details() {
   };
 
   if (user.length > 0 && userPosts.length > 0) {
-    /* localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("posts", JSON.stringify(userPosts)); */
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("userPosts", JSON.stringify(userPosts));
     return (
       <Container fluid className="d-flex flex-column align-items-center">
         <LinkContainer to="/" className="mt-2 mb-3">
@@ -59,7 +59,7 @@ export default function Details() {
     );
   }
 
-  if (localStorage.length) {
+  if (localStorage.length > 0) {
     const dataUserString = localStorage.getItem("user");
     let dataFromStorage = JSON.parse(dataUserString);
     console.log(dataFromStorage);
@@ -104,4 +104,17 @@ export default function Details() {
       </Container>
     );
   }
+
+  return (
+    <Container fluid className="d-flex flex-column align-items-center">
+      <LinkContainer to="/" className="mt-2 mb-3">
+        <Button variant="primary" onClick={handleExit}>
+          Назад к постам
+        </Button>
+      </LinkContainer>
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    </Container>
+  );
 }

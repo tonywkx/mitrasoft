@@ -58,10 +58,6 @@ export default function Home() {
             </Pagination.Item>
             {/*  <Pagination.Ellipsis disabled /> */}
 
-            {/* Вам нужно определить, как генерировать остальные элементы пагинации на основе количества страниц */}
-            {/* Например, если у вас есть переменная `totalPages`, которая содержит общее количество страниц */}
-            {/* Вы можете использовать цикл для генерации Pagination.Item для каждой страницы */}
-            {/* Пример: */}
             {Array.from({ length: totalPages }).map((_, index) => (
               <Pagination.Item
                 key={index + 2}
