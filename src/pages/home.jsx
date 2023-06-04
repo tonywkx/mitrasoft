@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Container fluid>
+      <Container fluid className="d-flex flex-column align-items-center">
         <h1>Список постов</h1>
 
         <SearchByTitle />

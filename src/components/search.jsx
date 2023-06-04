@@ -16,8 +16,8 @@ function SearchByTitle() {
   };
 
   return (
-    <Form className="d-flex">
-      <InputGroup className="me-3">
+    <Form className="d-flex w-50 border-2">
+      <InputGroup className="">
         <Form.Control
           type="search"
           placeholder="Search by title..."

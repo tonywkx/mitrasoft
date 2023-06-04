@@ -13,9 +13,16 @@ function SortByTitle() {
   };
 
   return (
-    <Form.Group controlId="sortSelect">
+    <Form.Group
+      controlId="sortSelect"
+      className="bg-info w-50 d-flex flex-column align-items-center p-2 mt-2 rounded custom-sort"
+    >
       <Form.Label>Сортировка по заголовку:</Form.Label>
-      <Form.Control as="select" onChange={handleSortChange}>
+      <Form.Control
+        as="select"
+        className="bg-light w-75"
+        onChange={handleSortChange}
+      >
         <option value="asc">По возрастанию</option>
         <option value="desc">По убыванию</option>
       </Form.Control>

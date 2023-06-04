@@ -35,7 +35,9 @@ const Posts = ({ posts, error, savedPosts }) => {
         return (
           <Card key={id} className="my-4 w-50 mr-2">
             <Card.Body>
-              <Card.Title>{title}</Card.Title>
+              <Card.Title className="bg-success rounded text-light">
+                {title}
+              </Card.Title>
               <Card.Text>{body}</Card.Text>
             </Card.Body>
             <Card.Footer className="justify-content-between d-flex flex-column align-items-center">
