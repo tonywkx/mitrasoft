@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/mitrasoft/static/css/main.d1c25038.css",
+    "main.js": "/mitrasoft/static/js/main.cb6a7b17.js",
+    "index.html": "/mitrasoft/index.html",
+    "main.d1c25038.css.map": "/mitrasoft/static/css/main.d1c25038.css.map",
+    "main.cb6a7b17.js.map": "/mitrasoft/static/js/main.cb6a7b17.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d1c25038.css",
+    "static/js/main.cb6a7b17.js"
+  ]
+}
